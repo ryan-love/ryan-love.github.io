@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js" integrity="sha512-gQVBYBvfC+uyor5Teonjr9nmY1bN+DlOCezkhzg4ShpC5q81ogvFsr5IV4xXAj6HEtG7M1Pb2JCha97tVFItYQ==" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.js" integrity="sha512-J+vDCDlH9TYo4uL0R5g9TCvJj8oGATXWi17AcOyUhuyEbJf0SF5HSmKv1gwPCEowauPanV0RAaYjyU+kbowtQg==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.js" integrity="sha512-5hBa9ZS0IR0MYfUAcvmqqMI5c6ax4X7LqymcTCXGCI7RckGX/3oICJw/hkm/5gdSg6mn7pReg47UPQPUuoccmg==" crossorigin="anonymous"></script>    <script src="https://cdn.jsdelivr.net/npm/matter-js@0.16.1/build/matter.min.js"></script>
-    <script src="/javascripts/light.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/matter-js@0.16.1/build/matter.min.js"></script>
+    <script src="/javascripts/Wall.js"></script>
     <script src="/javascripts/util.js"></script>
     <script src="/javascripts/Ray.js"></script>
     <script src="/javascripts/Boundary.js"></script>
     <script src="/javascripts/Particle.js"></script>
       <script src="/javascripts/Waypoints.js"></script>
     <script src="/javascripts/sketch.js"></script>
-      <script src="/javascripts/Easystar.js"></script>
    <!-- <script src="/javascripts/3D.js"></script> -->
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+  <div>
+    <form action="/" method="post">
+      <input type="checkbox">
+      <input type="checkbox">
+      <input type="checkbox">
+      <input type="checkbox">
+    </form>
+  </div>
   </body>
 </html>

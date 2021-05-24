@@ -7,6 +7,7 @@ class Ray {
 
 
     show() {
+        strokeWeight(1);
         stroke(255);
         push();
         //TRANSLATE CONTROLS THE RAYS POSITION

@@ -15,14 +15,14 @@ let way
 let boxes = []
 let osc, playing, freq, amp;
 let Points = []
-let Sound = new p5.Panner3D()
-let OSC = new p5.Oscillator()
 let walls = [];
 let point = []
 let particle;
 let xoff = 0;
 let yoff = 10000;
 let nR = []
+
+
 
 
 //REMOVE OR SOLVE LATER
@@ -35,9 +35,14 @@ function noScroll() {
 window.addEventListener('scroll', noScroll);
 */
 
+
+
     function setup(){
 
-        createCanvas(800, 800);
+
+
+        createCanvas(displayWidth, 800);
+
 
         boxes.push(boxA = Bodies.rectangle(400, 200, 10, 10,{isStatic: true}),
             boxB = Bodies.rectangle(100, 200, 80, 80,{
@@ -48,14 +53,6 @@ window.addEventListener('scroll', noScroll);
             }))
 
         ground = Bodies.rectangle(200, 610, width, 60, { isStatic: true })
-        for (let i = 0; i < 1; i++) {
-            /*let x1 = random(width);
-            let x2 = random(width);
-            let y1 = random(height);
-            let y2 = random(height);
-
-
-             */
 
             //User
             walls[0] = new Boundary(boxA.vertices[0].x,boxA.vertices[0].y,boxA.vertices[1].x,boxA.vertices[1].y);
@@ -63,9 +60,9 @@ window.addEventListener('scroll', noScroll);
             walls[2] = new Boundary(boxA.vertices[2].x,boxA.vertices[2].y,boxA.vertices[3].x,boxA.vertices[3].y);
             walls[3] = new Boundary(boxA.vertices[3].x,boxA.vertices[3].y,boxA.vertices[0].x,boxA.vertices[0].y);
             // Main Box
-            walls[4] = new Boundary(100,100,700,100);
-            walls[5] = new Boundary(700,100,700,700);
-            walls[6] = new Boundary(700,700,100,700);
+            walls[4] = new Boundary(100,100,displayWidth-100,100);
+            walls[5] = new Boundary(displayWidth-100,100,displayWidth-100,700);
+            walls[6] = new Boundary(displayWidth-100,700,100,700);
             walls[7] = new Boundary(100,700,100,100);
             // Room 1 First Floor
             walls[8] = new Boundary(100,300,300,300);
@@ -97,7 +94,7 @@ window.addEventListener('scroll', noScroll);
 
 
 
-        }
+
         walls.push(new Boundary(-1, -1, width, -1));
         walls.push(new Boundary(width, -1, width, height));
         walls.push(new Boundary(width, height, -1, height));
@@ -116,26 +113,38 @@ window.addEventListener('scroll', noScroll);
         l8 = new Particle();
 
 
-
+/*
         light = new Light(150,300)
         console.log(light)
         light.setNetwork("192.168.0.1",true,100)
         light.setBulb(75,0.81)
         light.r=light.showIntense()
         console.log(light.showLightDistance())
-        console.log(boxA)
-        way = new Waypoints(random(150,650),random(150,650),40)
-        for (let i = 0; i < 3; i++) {
-            point.push(new Waypoints(random(150,650),random(150,650),40))
-        }
+
+ */
+
+        way = new Waypoints("Test",random(150,650),random(150,650),40)
+          let coffee = point.push(new Waypoints("Coffee",random(150,650),random(150,650),40,"images/E0C6_color.png"))
+        let bacon = point.push(new Waypoints("Bacon",random(150,650),random(150,650),40,"images/1F953_color.png"))
+        let butter= point.push(new Waypoints("Butter",random(150,650),random(150,650),40,"images/1F9C8_color.png"))
+        let bread= point.push(new Waypoints("Bread",random(150,650),random(150,650),40,"images/1F35E_color.png"))
+        let meat= point.push(new Waypoints("Meat",random(150,650),random(150,650),40,"images/1F969_color.png"))
+        let pasta= point.push(new Waypoints("Pasta",random(150,650),random(150,650),40,"images/1F35D_color.png"))
+        let garlic= point.push(new Waypoints("Garlic",random(150,650),random(150,650),40,"images/1F9C4_color.png"))
+        let onion= point.push(new Waypoints("Onion",random(150,650),random(150,650),40,"images/1F9C5_color.png"))
+        let carrot= point.push(new Waypoints("Carrot",random(150,650),random(150,650),40,"images/1F955_color.png"))
+        let herbs= point.push(new Waypoints("Herbs",random(150,650),random(150,650),40,"images/1F33F_color.png"))
+        let milk= point.push(new Waypoints("Milk",random(150,650),random(150,650),40,"images/1F95B_color.png"))
+        let sandwich= point.push(new Waypoints("Sandwich",random(150,650),random(150,650),40,"images/1F96A_color.png"))
+        let veg = point.push(new Waypoints("Green Veg",random(150,650),random(150,650),40,"images/1F96C_color.png"))
+
+
 
         Engine.run(engine)
         World.add(world,[ground,boxes,way.body])
         for (let i = 0; i < pM.rays.length ; i++) {
             nR.push(Matter.Body.create(pM.rays[i]))
         }
-
-        let util = new Utils
 
 
     }
@@ -151,15 +160,10 @@ window.addEventListener('scroll', noScroll);
 
 
         //light = new Light([boxA],{ x: 400, y: 200 },{ x: mouseX, y: mouseY })
-        light.eP = {x:mouseX,y:mouseY}
+       // light.eP = {x:mouseX,y:mouseY}
     }
 
-    function mouseClicked(){
-        w = new Waypoints(mouseX,mouseY,4)
-        Points.push(w)
-        console.log("New Point")
 
-    }
 
     function sound(){
         //const bias = -((Math.round(700 / 2) - mouseX) / 700) * 2 ;
@@ -170,7 +174,7 @@ window.addEventListener('scroll', noScroll);
 
         var id = sound.play();
 
-        
+
 
         sound.pos(way.body.position.x, way.body.position.y,1,id )
         sound.volume(1, id);
@@ -239,25 +243,7 @@ window.addEventListener('scroll', noScroll);
 
         }
 
-        if (keyCode === 100){
-            OSC.freq(440)
-            Sound.process(OSC)
-            console.log(Sound.set(100,100))
-            freq = constrain(map(mouseX, 0, width, 50, 500), 50, 500);
-            amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
 
-            text('tap to play', 20, 20);
-            text('freq: ' + freq, 20, 40);
-            text('amp: ' + amp, 20, 60);
-
-            if (playing) {
-                // smooth the transitions by 0.1 seconds
-                osc.freq(100, 0.1);
-                osc.amp(1, 0.1);
-            }
-
-
-        }
     }
 
     function draw(){
@@ -321,7 +307,7 @@ window.addEventListener('scroll', noScroll);
         }
 
 
-        background(0);
+        background(70,71,79);
 
         for (let wall of walls) {
             wall.show();
@@ -400,15 +386,18 @@ window.addEventListener('scroll', noScroll);
         yoff += 0.01;
 
 
-        light.show()
+      //  light.show()
         if(SAT.collides(boxA,way.body).collided === true){
             console.log("Hello")
         }
 
 
         for(let i = 0; i<boxes.length;i++) {
+            let c = color(82,204,165);
+            fill(c);
+            noStroke()
+            let r = rect(boxA.vertices[0].x, boxA.vertices[0].y, 25, 25,10)
 
-            let r = rect(boxA.vertices[0].x, boxA.vertices[0].y, 10,10)
 
         }
 
@@ -465,10 +454,18 @@ window.addEventListener('scroll', noScroll);
         for (let i = 0; i < point.length ; i++) {
             point[i].render()
             if (point[0].body.id < point[1].body.id){
-                sound()
+                //sound()
             }
 
         }
+        /*
+        let c = get(0,0)
+        if(c[0]== 255){
+            console.log(255)
+        }
+
+         */
+
 
 
 

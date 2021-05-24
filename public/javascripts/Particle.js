@@ -20,10 +20,13 @@ class Particle {
     }
 
     look(walls) {
+
+        let int = (Math.pow(100,2)*4*Math.PI).toFixed(2)/10
+
         for (let i = 0; i < this.rays.length; i++) {
             const ray = this.rays[i];
             let closest = null;
-            let record = Infinity;
+            let record = int;
             for (let wall of walls) {
                 const pt = ray.cast(wall);
                 if (pt) {
@@ -35,10 +38,10 @@ class Particle {
                 }
             }
             if (closest) {
-                // colorMode(HSB);
-                // stroke((i + frameCount * 2) % 360, 255, 255, 50);
-                stroke(255, 100);
+
+                stroke(248,249,252, 100);
                 line(this.pos.x, this.pos.y, closest.x, closest.y);
+
 
 
             }
