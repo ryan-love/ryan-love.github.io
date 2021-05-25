@@ -1,16 +1,14 @@
-// Daniel Shiffman
-// https://thecodingtrain.com/CodingChallenges/145-2d-ray-casting.html
-// https://youtu.be/TOEi6T2mtHo
 
-// 2D Ray Casting
 
 class Particle {
     constructor() {
+        this.ip = "192.168.0.1"
         this.pos = createVector(width / 2, height / 2)
         this.rays = [];
         for (let a = 0; a < 360; a += 2.5) {
             this.rays.push(new Ray(this.pos, radians(a)));
         }
+
 
     }
 
@@ -20,13 +18,15 @@ class Particle {
     }
 
     look(walls) {
-
-        let int = (Math.pow(100,2)*4*Math.PI).toFixed(2)/10
+        var src = document.getElementById("color");
+        var ip = document.getElementById("ip");
+        let int = 98000 / Math.hypot(this.pos.x - boxA.position.x, this.pos.y - boxA.position.y)
+        let kel =  Math.hypot(this.pos.x - boxA.position.x, this.pos.y - boxA.position.y)
 
         for (let i = 0; i < this.rays.length; i++) {
             const ray = this.rays[i];
             let closest = null;
-            let record = int;
+            let record =Infinity;
             for (let wall of walls) {
                 const pt = ray.cast(wall);
                 if (pt) {
@@ -34,13 +34,38 @@ class Particle {
                     if (d < record) {
                         record = d;
                         closest = pt;
+
                     }
                 }
             }
             if (closest) {
 
                 stroke(248,249,252, 100);
-                line(this.pos.x, this.pos.y, closest.x, closest.y);
+                if (kel < 199){
+                    src.children.item(1).setAttribute("fill","#FCEA2B")
+                    textSize(10)
+                    text(this.ip,boxA.position.x - 30,boxA.position.y-10)
+                    stroke(0, 100);
+                    line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
+                }
+                if (kel > 200){
+                    src.children.item(1).setAttribute("fill","#fcf5a4")
+                    textSize(10)
+                    text(this.ip,boxA.position.x - 30,boxA.position.y-10)
+                    stroke(100, 100);
+                    line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
+
+                }
+                if (kel > 500){
+                    src.children.item(1).setAttribute("fill","#f7f5df")
+                    textSize(10)
+                    text(this.ip,boxA.position.x - 30,boxA.position.y-10)
+                    stroke(200, 100);
+                    line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
+                }
+
+                //line(this.pos.x, this.pos.y,  closest.x, closest.y);
+
 
 
 

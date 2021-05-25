@@ -21,6 +21,7 @@ let particle;
 let xoff = 0;
 let yoff = 10000;
 let nR = []
+let a = [new Particle(),new Particle()]
 
 
 
@@ -101,7 +102,6 @@ window.addEventListener('scroll', noScroll);
         walls.push(new Boundary(-1, height, -1, -1));
 
 
-
         pM = new Particle();
         l1 = new Particle();
         l2 = new Particle();
@@ -111,6 +111,8 @@ window.addEventListener('scroll', noScroll);
         l6 = new Particle();
         l7 = new Particle();
         l8 = new Particle();
+
+
 
 
 /*
@@ -244,6 +246,7 @@ window.addEventListener('scroll', noScroll);
         }
 
 
+
     }
 
     function draw(){
@@ -350,7 +353,17 @@ window.addEventListener('scroll', noScroll);
          */
 
 
+
        // particle.update(noise(xoff) * width, noise(yoff) * height);
+
+        l8.update(100,100);
+        l8.show();
+        l8.look(walls)
+
+        /*
+        l8.update(190,350);
+        l8.show();
+        l8.look(walls)
         l1.update(190,200);
         l1.show();
         l1.look(walls)
@@ -373,13 +386,15 @@ window.addEventListener('scroll', noScroll);
         l7.update(390,550);
         l7.show();
         l7.look(walls)
-        l8.update(190,350);
-        l8.show();
-        l8.look(walls)
 
+         */
+
+/*
         pM.update(mouseX,mouseY);
         pM.show();
         pM.look(walls)
+
+ */
 
 
         xoff += 0.01;
