@@ -5,7 +5,7 @@ function Waypoints(id,x=0,y = 0,r=0,img){
 
     this.render = ()=>{
         push()
-        image(icon,x,y,15,15)
+        image(icon,x,y,30,30)
         pop()
     }
 

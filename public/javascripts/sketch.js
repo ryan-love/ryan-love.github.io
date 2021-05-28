@@ -21,7 +21,6 @@ let particle;
 let xoff = 0;
 let yoff = 10000;
 let nR = []
-let a = [new Particle(),new Particle()]
 
 
 
@@ -65,32 +64,7 @@ window.addEventListener('scroll', noScroll);
             walls[5] = new Boundary(displayWidth-100,100,displayWidth-100,700);
             walls[6] = new Boundary(displayWidth-100,700,100,700);
             walls[7] = new Boundary(100,700,100,100);
-            // Room 1 First Floor
-            walls[8] = new Boundary(100,300,300,300);
-            walls[9] = new Boundary(300,300,300,200);
-            walls[10] = new Boundary(300,100,300,150);
-            // Room 2 First Floor
-            walls[11] = new Boundary(700,400,500,400);
-            walls[12] = new Boundary(500,400,500,200);
-            walls[13] = new Boundary(500,100,500,150);
-            // Room 3 First Floor
-            walls[14] = new Boundary(100,400,450,400);
-            // Stairs First Floor
-            walls[15] = new Boundary(300,300,300,350);
-            walls[16] = new Boundary(100,400,450,400);
-            // Room 1 Second Floor
-            walls[17] = new Boundary(100,400,700,400);
-            // Room 2 Second Floor
-            walls[18] = new Boundary(100,300,300,300);
-            walls[19] = new Boundary(300,300,300,200);
-            walls[20] = new Boundary(300,100,300,150);
-            // Room 3 Second Floor
-            walls[21] = new Boundary(700,400,500,400);
-            walls[22] = new Boundary(500,400,500,200);
-            walls[23] = new Boundary(500,100,500,150);
-            // Stairs Second Floor
-            walls[24] = new Boundary(300,300,300,350);
-            walls[25] = new Boundary(100,400,450,400);
+
 
 
 
@@ -102,15 +76,15 @@ window.addEventListener('scroll', noScroll);
         walls.push(new Boundary(-1, height, -1, -1));
 
 
-        pM = new Particle();
-        l1 = new Particle();
-        l2 = new Particle();
-        l3 = new Particle();
-        l4 = new Particle();
-        l5 = new Particle();
-        l6 = new Particle();
-        l7 = new Particle();
-        l8 = new Particle();
+        pM = new Particle1();
+        l1 = new Particle1();
+        l2 = new Particle1();
+        l3 = new Particle1();
+        l4 = new Particle1();
+        l5 = new Particle1();
+        l6 = new Particle1();
+        l7 = new Particle2();
+        l8 = new Particle1();
 
 
 
@@ -126,19 +100,19 @@ window.addEventListener('scroll', noScroll);
  */
 
         way = new Waypoints("Test",random(150,650),random(150,650),40)
-          let coffee = point.push(new Waypoints("Coffee",random(150,650),random(150,650),40,"images/E0C6_color.png"))
-        let bacon = point.push(new Waypoints("Bacon",random(150,650),random(150,650),40,"images/1F953_color.png"))
-        let butter= point.push(new Waypoints("Butter",random(150,650),random(150,650),40,"images/1F9C8_color.png"))
-        let bread= point.push(new Waypoints("Bread",random(150,650),random(150,650),40,"images/1F35E_color.png"))
-        let meat= point.push(new Waypoints("Meat",random(150,650),random(150,650),40,"images/1F969_color.png"))
-        let pasta= point.push(new Waypoints("Pasta",random(150,650),random(150,650),40,"images/1F35D_color.png"))
-        let garlic= point.push(new Waypoints("Garlic",random(150,650),random(150,650),40,"images/1F9C4_color.png"))
-        let onion= point.push(new Waypoints("Onion",random(150,650),random(150,650),40,"images/1F9C5_color.png"))
-        let carrot= point.push(new Waypoints("Carrot",random(150,650),random(150,650),40,"images/1F955_color.png"))
-        let herbs= point.push(new Waypoints("Herbs",random(150,650),random(150,650),40,"images/1F33F_color.png"))
-        let milk= point.push(new Waypoints("Milk",random(150,650),random(150,650),40,"images/1F95B_color.png"))
-        let sandwich= point.push(new Waypoints("Sandwich",random(150,650),random(150,650),40,"images/1F96A_color.png"))
-        let veg = point.push(new Waypoints("Green Veg",random(150,650),random(150,650),40,"images/1F96C_color.png"))
+          let coffee = point.push(new Waypoints("Coffee",400,350,40,"images/E0C6_color.png"))
+        let bacon = point.push(new Waypoints("Bacon",600,500,40,"images/1F953_color.png"))
+        let butter= point.push(new Waypoints("Butter",550,250,40,"images/1F9C8_color.png"))
+        let bread= point.push(new Waypoints("Bread",350,600,40,"images/1F35E_color.png"))
+        let meat= point.push(new Waypoints("Meat",700,500,40,"images/1F969_color.png"))
+        let pasta= point.push(new Waypoints("Pasta",300,600,40,"images/1F35D_color.png"))
+        let garlic= point.push(new Waypoints("Garlic",700,350,40,"images/1F9C4_color.png"))
+        let onion= point.push(new Waypoints("Onion",750,350,40,"images/1F9C5_color.png"))
+        let carrot= point.push(new Waypoints("Carrot",800,250,40,"images/1F955_color.png"))
+        let herbs= point.push(new Waypoints("Herbs",750,250,40,"images/1F33F_color.png"))
+        let milk= point.push(new Waypoints("Milk",400,250,40,"images/1F95B_color.png"))
+        let sandwich= point.push(new Waypoints("Sandwich",50,50,40,"images/1F96A_color.png"))
+        let veg = point.push(new Waypoints("Green Veg",700,250,40,"images/1F96C_color.png"))
 
 
 
@@ -359,6 +333,7 @@ window.addEventListener('scroll', noScroll);
         l8.update(100,100);
         l8.show();
         l8.look(walls)
+
 
         /*
         l8.update(190,350);

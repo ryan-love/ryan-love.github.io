@@ -1,6 +1,6 @@
 
 
-class Particle {
+class Particle2 {
     constructor() {
         this.ip = "192.168.0.1"
         this.pos = createVector(width / 2, height / 2)
