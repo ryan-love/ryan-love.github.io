@@ -21,7 +21,10 @@ let particle;
 let xoff = 0;
 let yoff = 10000;
 let nR = []
-
+let t0 , t1
+let arr = []
+let newArr = []
+let id = window.crypto.getRandomValues(new Uint32Array(1))
 
 
 
@@ -38,13 +41,13 @@ window.addEventListener('scroll', noScroll);
 
 
     function setup(){
+        
 
 
 
-        createCanvas(displayWidth, 800);
-
-
-        boxes.push(boxA = Bodies.rectangle(400, 200, 10, 10,{isStatic: true}),
+        createCanvas(1600, 800);
+        document.getElementById("id").innerHTML = id
+        boxes.push(boxA = Bodies.rectangle(400, 200, 10, 10,{isStatic: false}),
             boxB = Bodies.rectangle(100, 200, 80, 80,{
                 isStatic: true
             }),
@@ -60,12 +63,18 @@ window.addEventListener('scroll', noScroll);
             walls[2] = new Boundary(boxA.vertices[2].x,boxA.vertices[2].y,boxA.vertices[3].x,boxA.vertices[3].y);
             walls[3] = new Boundary(boxA.vertices[3].x,boxA.vertices[3].y,boxA.vertices[0].x,boxA.vertices[0].y);
             // Main Box
-            walls[4] = new Boundary(100,100,displayWidth-100,100);
-            walls[5] = new Boundary(displayWidth-100,100,displayWidth-100,700);
-            walls[6] = new Boundary(displayWidth-100,700,100,700);
+            walls[4] = new Boundary(100,100,1500,100);
+            walls[5] = new Boundary(1500,100,1500,700);
+            walls[6] = new Boundary(1500,700,100,700);
             walls[7] = new Boundary(100,700,100,100);
 
-
+        // Shop Walls
+        walls[8] = new Boundary(200,200,600,200);
+        walls[9] = new Boundary(800,200,1200,200);
+        walls[10] = new Boundary(200,400,600,400);
+        walls[11] = new Boundary(800,400,1200,400);
+        walls[12] = new Boundary(200,600,600,600);
+        walls[13] = new Boundary(800,600,1200,600);
 
 
 
@@ -78,13 +87,13 @@ window.addEventListener('scroll', noScroll);
 
         pM = new Particle1();
         l1 = new Particle1();
-        l2 = new Particle1();
-        l3 = new Particle1();
-        l4 = new Particle1();
-        l5 = new Particle1();
-        l6 = new Particle1();
-        l7 = new Particle2();
-        l8 = new Particle1();
+        l2 = new Particle2();
+        l3 = new Particle3();
+        l4 = new Particle4();
+        l5 = new Particle5();
+        l6 = new Particle6();
+        l7 = new Particle7();
+        l8 = new Particle8();
 
 
 
@@ -99,69 +108,73 @@ window.addEventListener('scroll', noScroll);
 
  */
 
-        way = new Waypoints("Test",random(150,650),random(150,650),40)
           let coffee = point.push(new Waypoints("Coffee",400,350,40,"images/E0C6_color.png"))
-        let bacon = point.push(new Waypoints("Bacon",600,500,40,"images/1F953_color.png"))
-        let butter= point.push(new Waypoints("Butter",550,250,40,"images/1F9C8_color.png"))
-        let bread= point.push(new Waypoints("Bread",350,600,40,"images/1F35E_color.png"))
-        let meat= point.push(new Waypoints("Meat",700,500,40,"images/1F969_color.png"))
-        let pasta= point.push(new Waypoints("Pasta",300,600,40,"images/1F35D_color.png"))
-        let garlic= point.push(new Waypoints("Garlic",700,350,40,"images/1F9C4_color.png"))
-        let onion= point.push(new Waypoints("Onion",750,350,40,"images/1F9C5_color.png"))
-        let carrot= point.push(new Waypoints("Carrot",800,250,40,"images/1F955_color.png"))
-        let herbs= point.push(new Waypoints("Herbs",750,250,40,"images/1F33F_color.png"))
-        let milk= point.push(new Waypoints("Milk",400,250,40,"images/1F95B_color.png"))
-        let sandwich= point.push(new Waypoints("Sandwich",50,50,40,"images/1F96A_color.png"))
-        let veg = point.push(new Waypoints("Green Veg",700,250,40,"images/1F96C_color.png"))
+        let bacon = point.push(new Waypoints("Bacon",850,550,40,"images/1F953_color.png"))
+        let butter= point.push(new Waypoints("Butter",500,200,40,"images/1F9C8_color.png"))
+        let bread= point.push(new Waypoints("Bread",300,550,40,"images/1F35E_color.png"))
+        let meat= point.push(new Waypoints("Meat",1050,425,40,"images/1F969_color.png"))
+        let pasta= point.push(new Waypoints("Pasta",500,425,40,"images/1F35D_color.png"))
+        let garlic= point.push(new Waypoints("Garlic",850,350,40,"images/1F9C4_color.png"))
+        let onion= point.push(new Waypoints("Onion",950,350,40,"images/1F9C5_color.png"))
+        let carrot= point.push(new Waypoints("Carrot",1050,225,40,"images/1F955_color.png"))
+        let herbs= point.push(new Waypoints("Herbs",950,225,40,"images/1F33F_color.png"))
+        let milk= point.push(new Waypoints("Milk",500,350,40,"images/1F95B_color.png"))
+        let sandwich= point.push(new Waypoints("Sandwich",400,425,40,"images/1F96A_color.png"))
+        let veg = point.push(new Waypoints("Green Veg",850,225,40,"images/1F96C_color.png"))
+        let value = point.push(new Waypoints("DONE",20000,30000,40,"images/1F96C_color.png"))
 
 
 
         Engine.run(engine)
-        World.add(world,[ground,boxes,way.body])
+        World.add(world,[ground,boxes,point])
+
+        
         for (let i = 0; i < pM.rays.length ; i++) {
             nR.push(Matter.Body.create(pM.rays[i]))
         }
+        
 
 
     }
-    function mouseDragged () {
-        Body.setPosition(boxA,{x:mouseX,y:mouseY})
-        if (boxA.vertices){
-            walls[0].update(boxA.vertices[0].x,boxA.vertices[0].y,boxA.vertices[1].x,boxA.vertices[1].y)
-            walls[1].update(boxA.vertices[1].x,boxA.vertices[1].y,boxA.vertices[2].x,boxA.vertices[2].y)
-            walls[2].update(boxA.vertices[2].x,boxA.vertices[2].y,boxA.vertices[3].x,boxA.vertices[3].y)
-            walls[3].update(boxA.vertices[3].x,boxA.vertices[3].y,boxA.vertices[0].x,boxA.vertices[0].y)
-        }
+    // function mouseDragged () {
+    //     Body.setPosition(boxA,{x:mouseX,y:mouseY})
+    //     if (boxA.vertices){
+    //         walls[0].update(boxA.vertices[0].x,boxA.vertices[0].y,boxA.vertices[1].x,boxA.vertices[1].y)
+    //         walls[1].update(boxA.vertices[1].x,boxA.vertices[1].y,boxA.vertices[2].x,boxA.vertices[2].y)
+    //         walls[2].update(boxA.vertices[2].x,boxA.vertices[2].y,boxA.vertices[3].x,boxA.vertices[3].y)
+    //         walls[3].update(boxA.vertices[3].x,boxA.vertices[3].y,boxA.vertices[0].x,boxA.vertices[0].y)
+    //     }
 
-
-
-        //light = new Light([boxA],{ x: 400, y: 200 },{ x: mouseX, y: mouseY })
-       // light.eP = {x:mouseX,y:mouseY}
-    }
+    // }
 
 
 
     function sound(){
-        //const bias = -((Math.round(700 / 2) - mouseX) / 700) * 2 ;
-        const sound = new Howl({ src: ["/javascripts/beep.wav"],volume:0,/*stereo:
-            bias,*/ onend: function() {
+        //
+        const bias = -((Math.round(700 / 2) - point[0].body.position.y) / 700) * 2 ;
+        const sound = new Howl({ src: ["/javascripts/beep.wav"],volume:0.1,stereo:
+            bias, onend: function() {
                 console.log('Finished!');
             }});
 
+
         var id = sound.play();
 
-
-
-        sound.pos(way.body.position.x, way.body.position.y,1,id )
-        sound.volume(1, id);
+        sound.once("play",()=>{
+            sound.pos(point[0].body.position.x, point[0].body.position.y,1,id )
         sound.pannerAttr({
             panningModel: 'HRTF',
-            refDistance: 10,
-            rolloffFactor: 1,
-            distanceModel: 'exponential'
+            refDistance: 0.3,
+        rolloffFactor: 1,
+        distanceModel: 'exponential'
         },id)
+        })
 
-        Howler.pos(mouseX,mouseY,1)
+        
+
+        
+
+       //Howler.pos(point[0].body.position.x, point[0].body.position.y,1,id)
 
 
 
@@ -174,61 +187,81 @@ window.addEventListener('scroll', noScroll);
             sound()
         }
 
-        if (keyCode === BACKSPACE){
-            // Room 1 Second Floor
-            walls[17].update(2000,2000,2000,2000)
-            // Room 2 Second Floor
-            walls[18].update(2000,2000,2000,2000)
-            walls[19].update(2000,2000,2000,2000)
-            walls[20].update(2000,2000,2000,2000)
-            // Room 3 Second Floor
-            walls[21].update(2000,2000,2000,2000)
-            walls[22].update(2000,2000,2000,2000)
-            walls[23].update(2000,2000,2000,2000)
-            // Stairs Second Floor
-            walls[24].update(2000,2000,2000,2000)
-            walls[25].update(2000,2000,2000,2000)
-        }
-
-        if(keyCode === SHIFT){
-            // Room 1 First Floor
-            walls[8].update(2000,2000,2000,2000)
-            walls[9].update(2000,2000,2000,2000)
-            walls[10].update(2000,2000,2000,2000)
-            // Room 2 First Floor
-            walls[11].update(2000,2000,2000,2000)
-            walls[12].update(2000,2000,2000,2000)
-            walls[13].update(2000,2000,2000,2000)
-            // Room 3 First Floor
-            walls[14].update(2000,2000,2000,2000)
-            walls[15].update(2000,2000,2000,2000)
-            walls[16].update(2000,2000,2000,2000)
-            // Room 1 Second Floor
-            walls[17] = new Boundary(100,400,700,400);
-            // Room 2 Second Floor
-            walls[18] = new Boundary(100,300,300,300);
-            walls[19] = new Boundary(300,300,300,200);
-            walls[20] = new Boundary(300,100,300,150);
-            // Room 3 Second Floor
-            walls[21] = new Boundary(700,400,500,400);
-            walls[22] = new Boundary(500,400,500,200);
-            walls[23] = new Boundary(500,100,500,150);
-            // Stairs Second Floor
-            walls[24] = new Boundary(300,300,300,350);
-            walls[25] = new Boundary(100,400,450,400);
-
-        }
+       
+        
 
 
 
     }
 
     function draw(){
+        
+        if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+            t0 = Date.now()
+            arr.push(t0)
+            
+            
+        } if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+           
+            
+        }
+
+
+        if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+        
+        }if(SAT.collides(boxA,point[0].body).collided){
+
+            point.splice(0,1)
+            
+        }if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+            
+        }if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+            
+        }if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+            
+        }if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+           
+        }if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+            
+        }if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+            
+        }if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+            
+        }if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+            
+        }if(SAT.collides(boxA,point[0].body).collided){
+            point.splice(0,1)
+           
+        }
+        if(point[0].id == "DONE"){
+            console.log("DONE")
+            t1 = Date.now()
+            newArr.push(t1)
+            textSize(300);
+             textAlign(CENTER, CENTER);
+            text(`${new Date(newArr[0])} - ${new Date(arr[0])}`,500,500)
+            
+        }
+        
+
+
+        
         for (let i = 0; i < Points.length; i++) {
             Points[i].render()
         }
         if(keyIsDown(LEFT_ARROW)){
-            /*
+            
             if (boxA.vertices){
                 walls[0].update(boxA.vertices[0].x,boxA.vertices[0].y,boxA.vertices[1].x,boxA.vertices[1].y)
                 walls[1].update(boxA.vertices[1].x,boxA.vertices[1].y,boxA.vertices[2].x,boxA.vertices[2].y)
@@ -236,14 +269,14 @@ window.addEventListener('scroll', noScroll);
                 walls[3].update(boxA.vertices[3].x,boxA.vertices[3].y,boxA.vertices[0].x,boxA.vertices[0].y)
             }
 
-             */
+             
 
                 Body.setPosition(boxA,{x:boxA.position.x - 10,y:boxA.position.y})
 
 
         }
         if(keyIsDown(RIGHT_ARROW)){
-            /*
+            
             if (boxA.vertices){
                 walls[0].update(boxA.vertices[0].x,boxA.vertices[0].y,boxA.vertices[1].x,boxA.vertices[1].y)
                 walls[1].update(boxA.vertices[1].x,boxA.vertices[1].y,boxA.vertices[2].x,boxA.vertices[2].y)
@@ -251,13 +284,13 @@ window.addEventListener('scroll', noScroll);
                 walls[3].update(boxA.vertices[3].x,boxA.vertices[3].y,boxA.vertices[0].x,boxA.vertices[0].y)
             }
 
-             */
+             
 
                 Body.setPosition(boxA, {x: boxA.position.x + 10, y: boxA.position.y})
 
         }
         if(keyIsDown(UP_ARROW)){
-            /*
+            
             if (boxA.vertices){
                 walls[0].update(boxA.vertices[0].x,boxA.vertices[0].y,boxA.vertices[1].x,boxA.vertices[1].y)
                 walls[1].update(boxA.vertices[1].x,boxA.vertices[1].y,boxA.vertices[2].x,boxA.vertices[2].y)
@@ -265,20 +298,20 @@ window.addEventListener('scroll', noScroll);
                 walls[3].update(boxA.vertices[3].x,boxA.vertices[3].y,boxA.vertices[0].x,boxA.vertices[0].y)
             }
 
-             */
+             
             Body.setPosition(boxA,{x:boxA.position.x,y:boxA.position.y - 10})
         }
 
 
         if(keyIsDown(DOWN_ARROW)){
-            /*if (boxA.vertices){
+            if (boxA.vertices){
                 walls[0].update(boxA.vertices[0].x,boxA.vertices[0].y,boxA.vertices[1].x,boxA.vertices[1].y)
                 walls[1].update(boxA.vertices[1].x,boxA.vertices[1].y,boxA.vertices[2].x,boxA.vertices[2].y)
                 walls[2].update(boxA.vertices[2].x,boxA.vertices[2].y,boxA.vertices[3].x,boxA.vertices[3].y)
                 walls[3].update(boxA.vertices[3].x,boxA.vertices[3].y,boxA.vertices[0].x,boxA.vertices[0].y)
             }
 
-             */
+             
 
             Body.setPosition(boxA,{x:boxA.position.x,y:boxA.position.y + 10})
         }
@@ -330,39 +363,37 @@ window.addEventListener('scroll', noScroll);
 
        // particle.update(noise(xoff) * width, noise(yoff) * height);
 
-        l8.update(100,100);
-        l8.show();
-        l8.look(walls)
 
 
-        /*
-        l8.update(190,350);
-        l8.show();
-        l8.look(walls)
-        l1.update(190,200);
+
+        l1.update(400,300);
         l1.show();
         l1.look(walls)
 
-        l2.update(190,200);
+        l2.update(700,300);
         l2.show();
         l2.look(walls)
-        l3.update(590,250);
+        l3.update(1000,300);
         l3.show();
         l3.look(walls)
-        l4.update(590,250);
+        l4.update(1300,300);
         l4.show();
         l4.look(walls)
-        l5.update(390,250);
+        l5.update(400,500);
         l5.show();
         l5.look(walls)
-        l6.update(390,250);
+        l6.update(700,500);
         l6.show();
         l6.look(walls)
-        l7.update(390,550);
+        l7.update(1000,500);
         l7.show();
         l7.look(walls)
+        l8.update(1300,500);
+        l8.show();
+        l8.look(walls)
 
-         */
+
+
 
 /*
         pM.update(mouseX,mouseY);
@@ -377,19 +408,9 @@ window.addEventListener('scroll', noScroll);
 
 
       //  light.show()
-        if(SAT.collides(boxA,way.body).collided === true){
-            console.log("Hello")
-        }
+        
 
-
-        for(let i = 0; i<boxes.length;i++) {
-            let c = color(82,204,165);
-            fill(c);
-            noStroke()
-            let r = rect(boxA.vertices[0].x, boxA.vertices[0].y, 25, 25,10)
-
-
-        }
+       
 
         if ( boxA.vertices[0].x < 0){
             boxA.vertices[0].x = boxA.vertices[0].x + 5
@@ -443,9 +464,8 @@ window.addEventListener('scroll', noScroll);
 
         for (let i = 0; i < point.length ; i++) {
             point[i].render()
-            if (point[0].body.id < point[1].body.id){
-                //sound()
-            }
+            
+            
 
         }
         /*
