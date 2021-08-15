@@ -152,7 +152,7 @@ window.addEventListener('scroll', noScroll);
     function sound(){
         //
         const bias = -((Math.round(700 / 2) - point[0].body.position.y) / 700) * 2 ;
-        const sound = new Howl({ src: ["/javascripts/beep.wav"],volume:0.1,stereo:
+        const sound = new Howl({ src: ["/public/javascripts/beep.wav"],volume:0.1,stereo:
             bias, onend: function() {
                 console.log('Finished!');
             }});
