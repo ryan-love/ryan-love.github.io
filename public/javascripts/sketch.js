@@ -28,6 +28,7 @@ let id = window.crypto.getRandomValues(new Uint32Array(1))
 
 
 
+
 //REMOVE OR SOLVE LATER
 /*
 function noScroll() {
@@ -47,6 +48,51 @@ window.addEventListener('scroll', noScroll);
 
         createCanvas(1600, 800);
         document.getElementById("id").innerHTML = id
+        let user = document.getElementById("user")
+        let k = document.getElementById("key")
+        let hash = document.getElementById("hash")
+
+
+
+
+
+
+
+// function verifyMessage(key) {
+  
+//   let encoded = getMessageEncoding();
+//   let result =  window.crypto.subtle.verify(
+//     "HMAC",
+//     key,
+//     signature[0],
+//     encoded
+//   );
+
+// }
+
+
+
+window.crypto.subtle.generateKey(
+  {
+    name: "HMAC",
+    hash: {name: "SHA-512"}
+  },
+  true,
+  ["sign", "verify"]
+).then(async (key) => {
+    let enc = new TextEncoder();
+    let encoded = enc.encode(id.toString());
+    let dec = new TextDecoder("utf-8");
+    let decoded = dec.decode(encoded)
+    let sign = await window.crypto.subtle.sign("HMAC",key,encoded)
+    user.value = decoded
+    k.value = JSON.stringify(await window.crypto.subtle.exportKey("jwk",key))
+    hash.value = new Uint8Array(sign).toString()
+  
+
+ 
+
+});
         boxes.push(boxA = Bodies.rectangle(400, 200, 10, 10,{isStatic: false}),
             boxB = Bodies.rectangle(100, 200, 80, 80,{
                 isStatic: true
