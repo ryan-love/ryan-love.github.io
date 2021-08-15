@@ -2,7 +2,7 @@
 
 class Particle2 {
     constructor() {
-        this.ip = "192.168.0.1"
+        this.ip = "192.168.0.2"
         this.pos = createVector(width / 2, height / 2)
         this.rays = [];
         for (let a = 0; a < 360; a += 2.5) {
@@ -18,7 +18,8 @@ class Particle2 {
     }
 
     look(walls) {
-        var src = document.getElementById("color");
+        var src = document.getElementById("color1");
+        document.getElementById("ip2").innerHTML = this.ip
         var ip = document.getElementById("ip");
         let int = 98000 / Math.hypot(this.pos.x - boxA.position.x, this.pos.y - boxA.position.y)
         let kel =  Math.hypot(this.pos.x - boxA.position.x, this.pos.y - boxA.position.y)
@@ -46,14 +47,14 @@ class Particle2 {
                     textSize(10)
                     text(this.ip,boxA.position.x - 30,boxA.position.y-10)
                     stroke(0, 100);
-                    line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
+                    //line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
                 }
                 if (kel > 200){
                     src.children.item(1).setAttribute("fill","#fcf5a4")
                     textSize(10)
                     text(this.ip,boxA.position.x - 30,boxA.position.y-10)
                     stroke(100, 100);
-                    line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
+                    //line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
 
                 }
                 if (kel > 500){
@@ -61,10 +62,12 @@ class Particle2 {
                     textSize(10)
                     text(this.ip,boxA.position.x - 30,boxA.position.y-10)
                     stroke(200, 100);
-                    line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
+                    //line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
                 }
 
-                //line(this.pos.x, this.pos.y,  closest.x, closest.y);
+                
+
+                
 
 
 
