@@ -19,6 +19,7 @@ class Particle1 {
 
     look(walls) {
         var src = document.getElementById("color");
+        document.getElementById("ip1").innerHTML = this.ip
         var ip = document.getElementById("ip");
         let int = 98000 / Math.hypot(this.pos.x - boxA.position.x, this.pos.y - boxA.position.y)
         let kel =  Math.hypot(this.pos.x - boxA.position.x, this.pos.y - boxA.position.y)
@@ -46,14 +47,14 @@ class Particle1 {
                     textSize(10)
                     text(this.ip,boxA.position.x - 30,boxA.position.y-10)
                     stroke(0, 100);
-                    line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
+                    //line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
                 }
                 if (kel > 200){
                     src.children.item(1).setAttribute("fill","#fcf5a4")
                     textSize(10)
                     text(this.ip,boxA.position.x - 30,boxA.position.y-10)
                     stroke(100, 100);
-                    line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
+                    //line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
 
                 }
                 if (kel > 500){
@@ -61,7 +62,7 @@ class Particle1 {
                     textSize(10)
                     text(this.ip,boxA.position.x - 30,boxA.position.y-10)
                     stroke(200, 100);
-                    line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
+                    //line(this.pos.x, this.pos.y,  boxA.position.x,  boxA.position.y);
                 }
 
                 //line(this.pos.x, this.pos.y,  closest.x, closest.y);
