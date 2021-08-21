@@ -196,20 +196,20 @@ let web = "KEY"
 
  */
 
-          let coffee = point.push(new Waypoints("Coffee",400,350,40,"images/E0C6_color.png"))
-        let bacon = point.push(new Waypoints("Bacon",850,550,40,"images/1F953_color.png"))
-        let butter= point.push(new Waypoints("Butter",500,200,40,"images/1F9C8_color.png"))
-        let bread= point.push(new Waypoints("Bread",300,550,40,"images/1F35E_color.png"))
-        let meat= point.push(new Waypoints("Meat",1050,425,40,"images/1F969_color.png"))
-        let pasta= point.push(new Waypoints("Pasta",500,425,40,"images/1F35D_color.png"))
-        let garlic= point.push(new Waypoints("Garlic",850,350,40,"images/1F9C4_color.png"))
-        let onion= point.push(new Waypoints("Onion",950,350,40,"images/1F9C5_color.png"))
-        let carrot= point.push(new Waypoints("Carrot",1050,225,40,"images/1F955_color.png"))
-        let herbs= point.push(new Waypoints("Herbs",950,225,40,"images/1F33F_color.png"))
-        let milk= point.push(new Waypoints("Milk",500,350,40,"images/1F95B_color.png"))
-        let sandwich= point.push(new Waypoints("Sandwich",400,425,40,"images/1F96A_color.png"))
-        let veg = point.push(new Waypoints("Green Veg",850,225,40,"images/1F96C_color.png"))
-        let value = point.push(new Waypoints("DONE",20000,30000,40,"images/1F96C_color.png"))
+          let coffee = point.push(new Waypoints("Coffee",400,350,40,"/public/images/E0C6_color.png"))
+        let bacon = point.push(new Waypoints("Bacon",850,550,40,"/public/images/1F953_color.png"))
+        let butter= point.push(new Waypoints("Butter",500,200,40,"/public/images/1F9C8_color.png"))
+        let bread= point.push(new Waypoints("Bread",300,550,40,"/public/images/1F35E_color.png"))
+        let meat= point.push(new Waypoints("Meat",1050,425,40,"/public/images/1F969_color.png"))
+        let pasta= point.push(new Waypoints("Pasta",500,425,40,"/public/images/1F35D_color.png"))
+        let garlic= point.push(new Waypoints("Garlic",850,350,40,"/public/images/1F9C4_color.png"))
+        let onion= point.push(new Waypoints("Onion",950,350,40,"/public/images/1F9C5_color.png"))
+        let carrot= point.push(new Waypoints("Carrot",1050,225,40,"/public/images/1F955_color.png"))
+        let herbs= point.push(new Waypoints("Herbs",950,225,40,"/public/images/1F33F_color.png"))
+        let milk= point.push(new Waypoints("Milk",500,350,40,"/public/images/1F95B_color.png"))
+        let sandwich= point.push(new Waypoints("Sandwich",400,425,40,"/public/images/1F96A_color.png"))
+        let veg = point.push(new Waypoints("Green Veg",850,225,40,"/public/images/1F96C_color.png"))
+        let value = point.push(new Waypoints("DONE",20000,30000,40,"/public/images/1F96C_color.png"))
 
 
 
@@ -240,7 +240,7 @@ let web = "KEY"
     function sound(){
         //
        const bias = -((Math.round(700 / 2) - point[0].body.position.y) / 700) * 2 ;
-        const sound = new Howl({ src: ["/javascripts/beep.wav"],volume:0, onend: function() {
+        const sound = new Howl({ src: ["/public/javascripts/beep.wav"],volume:0, onend: function() {
                 console.log('Finished!');
             }});
             Howler.pos(boxA.position.x, boxA.position.y)
