@@ -27,6 +27,11 @@
 
 
     <h1>Your ID is:<div id="id"></div></h1>
+    <label for="">Age:</label>
+    <input type="text" id="age" value="3">
+    <label for="">Gender:</label>
+    <input type="text"  id="gender" value="4">
+    <button id="button" onclick="genID()">Generate ID</button>
 
     <form
   method="post"
@@ -34,7 +39,9 @@
     <input type="hidden" name="data[id]" id="user" value="0">
     <input type="hidden" name="data[key]" id="key" value="1">
     <input type="hidden" name="data[hash]" id="hash" value="2">
-    <button type="submit">Submit</button>
+    <input type="hidden" name="data[time]" id="time" value="3">
+    
+    <button type="submit" onsubmit="submit">Submit</button>
 </form>
   <h3>Collect Items in Desending Order &#x2B07; <br> Press Enter to for 3D audio pulse</h3>
   <ol style="margin:auto; width:50px; margin-bottom:20px">
