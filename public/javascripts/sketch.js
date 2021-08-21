@@ -24,7 +24,8 @@ let nR = []
 let t0 , t1
 let arr = []
 let newArr = []
-let id = window.crypto.getRandomValues(new Uint32Array(1))
+let id = window.crypto.getRandomValues(new Uint32Array(1));
+console.log(id)
 
 
 
@@ -38,19 +39,21 @@ function noScroll() {
 // add listener to disable scroll
 window.addEventListener('scroll', noScroll);
 */
+function _base64ToArrayBuffer(base64) {
+    var binary_string = window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
+}
 
 
-
-    function setup(){
-        
-
-
-
-        createCanvas(1600, 800);
-        document.getElementById("id").innerHTML = id
-        let user = document.getElementById("user")
-        let k = document.getElementById("key")
-        let hash = document.getElementById("hash")
+function genID(){
+    let user = document.getElementById("user")
+    let k = document.getElementById("key")
+    let hash = document.getElementById("hash")
 
 
 
@@ -59,7 +62,7 @@ window.addEventListener('scroll', noScroll);
 
 
 // function verifyMessage(key) {
-  
+
 //   let encoded = getMessageEncoding();
 //   let result =  window.crypto.subtle.verify(
 //     "HMAC",
@@ -69,30 +72,69 @@ window.addEventListener('scroll', noScroll);
 //   );
 
 // }
+let web = "KEY"
 
 
+    let gender = document.getElementById("gender").value 
+   let age = document.getElementById("age").value 
+   document.getElementById("id").innerHTML = id
+   window.crypto.subtle.generateKey(
+    {
+      name: "HMAC",
+      hash: {name: "SHA-512"}
+    },
+    true,
+    ["sign", "verify"]
+  ).then(async (key) => {
+      let vID = ""
+      console.log(key)
+      let enc = new TextEncoder();
+      let encoded = enc.encode(id.toString()+gender.toString()+age.toString());
+      let vEnc = enc.encode(id.toString()+gender.toString()+age.toString());
+      let dec = new TextDecoder("utf-8");
+      let decoded = dec.decode(encoded)
+      let sign = await window.crypto.subtle.sign("HMAC",key,encoded)
+      let vSign = new Uint8Array([66,27,209,177,132,150,153,131,193,114,215,215,29,238,48,194,86,135,180,30,76,246,94,98,253,66,126,61,59,43,97,197,245,250,225,111,25,157,132,226,212,134,250,129,51,121,11,208,1,123,142,137,228,252,21,9,181,247,129,205,53,53,135,62])
+      user.value = encoded
+      k.value = JSON.stringify(await window.crypto.subtle.exportKey("jwk",key))
+      hash.value = new Uint8Array(sign).toString()
 
-window.crypto.subtle.generateKey(
-  {
-    name: "HMAC",
-    hash: {name: "SHA-512"}
-  },
-  true,
-  ["sign", "verify"]
-).then(async (key) => {
-    let enc = new TextEncoder();
-    let encoded = enc.encode(id.toString());
-    let dec = new TextDecoder("utf-8");
-    let decoded = dec.decode(encoded)
-    let sign = await window.crypto.subtle.sign("HMAC",key,encoded)
-    user.value = decoded
-    k.value = JSON.stringify(await window.crypto.subtle.exportKey("jwk",key))
-    hash.value = new Uint8Array(sign).toString()
+    //   let test = await window.crypto.subtle.importKey(
+    //     "jwk",
+    //     web,
+    //     {
+    //         name:"HMAC",
+    //         hash:"SHA-512"
+    //     },
+    //     true,
+    //     ["sign", "verify"]
+    //   );
+    //   console.log(test)
+    
+    //   let result =  await window.crypto.subtle.verify(
+    //         "HMAC",
+    //         key,
+    //         sign,
+    //         encoded
+    //       );
+
+    //       console.log(result)
+   
   
+  });
+}
 
- 
 
-});
+
+    function setup(){
+        
+
+
+        
+
+        createCanvas(1600, 800);
+        //document.getElementById("id").innerHTML = id
+       
         boxes.push(boxA = Bodies.rectangle(400, 200, 10, 10,{isStatic: false}),
             boxB = Bodies.rectangle(100, 200, 80, 80,{
                 isStatic: true
@@ -246,6 +288,36 @@ window.crypto.subtle.generateKey(
     }
 
     function draw(){
+
+
+
+        let user = document.getElementById("user")
+        let k = document.getElementById("key")
+        let hash = document.getElementById("hash")
+
+
+
+
+    
+
+
+// function verifyMessage(key) {
+  
+//   let encoded = getMessageEncoding();
+//   let result =  window.crypto.subtle.verify(
+//     "HMAC",
+//     key,
+//     signature[0],
+//     encoded
+//   );
+
+// }
+
+
+
+
+
+
         
         
         if(SAT.collides(boxA,point[0].body).collided){
@@ -296,13 +368,14 @@ window.crypto.subtle.generateKey(
             point.splice(0,1)
            
         }
+        console.log(document.getElementById("time").value)
         if(point[0].id == "DONE"){
             console.log("DONE")
             t1 = Date.now()
             newArr.push(t1)
             textSize(300);
              textAlign(CENTER, CENTER);
-            text(`${new Date(newArr[0])} - ${new Date(arr[0])}`,500,500)
+            document.getElementById("time").value = new Date(newArr[0]) - new Date(arr[0])
             
         }
         
